@@ -11,20 +11,26 @@ const MyEditor = () => {
 
   const onChange = (editorState:EditorState) => setEditorState(editorState);
 
+  const _onBoldClick = () => {
+    onChange(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
+  }
+
   const handleKeyCommand = (command:DraftEditorCommand) => {
     const newState = RichUtils.handleKeyCommand(editorState, command);
 
     if (newState) {
       onChange(newState);
-      
       return 'handled';
     }
+    console.log(editorState);
     return 'not-handled';
+    
   }
 
 
   return (
     <div className='editor'>
+        <button onClick={_onBoldClick}>Bold</button>
         <Editor 
         editorState={editorState} 
         handleKeyCommand={handleKeyCommand} 
